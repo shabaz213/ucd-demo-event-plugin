@@ -1,0 +1,54 @@
+import groovy.xml.XmlParser
+
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+defaultTasks("dist")
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+    // Add Log4j core and API as dependencies (update version as needed)
+    implementation 'org.apache.logging.log4j:log4j-core:2.24.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.24.1'
+}
+
+// Task to copy dependencies to the lib directory
+tasks.register('copyDependencies', Copy) {
+    from configurations.runtimeClasspath
+    into "build/libs"
+}
+
+tasks.register("dist", Zip) {
+
+    dependsOn("copyDependencies", "build")
+
+    from("build/libs") {
+        include("*.jar")
+    }
+
+    String pluginVersion
+    if (project.hasProperty('pluginVersion')) {
+        pluginVersion = project.getProperty('pluginVersion')
+    } else {
+        def pluginNode = new XmlParser().parse(new File('src/main/zip/plugin.xml'))
+        pluginVersion = "${pluginNode.header.identifier.@version[0]}.dev"
+    }
+
+    from("src/main/zip") {
+        filter {
+            it.replace("@RELEASE_VERSION@", "$pluginVersion")
+        }
+    }
+
+    destinationDirectory.set(file("build/distributions"))
+    archiveFileName = "${rootProject.name}-${pluginVersion}.zip"
+}
