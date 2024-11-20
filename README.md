@@ -1,13 +1,22 @@
-# DevOps Deploy Automation Plugin Template
+# Event Registration Plugin
 
 ---
 
-This repository provides a foundational template for developing automation plugins for 
-DevOps Deploy, also known as Urban Code Deploy. It includes sample code and configuration
-necessary for creating a new plugin, streamlining the process for developers aiming to 
-extend DevOps Deploy functionalities.
+## Overview
 
-For more information on plugin development, 
-please refer to the [official IBM DevOps Deploy plugin documentation](https://www.ibm.com/docs/en/devops-deploy/8.0.1?topic=function-plug-ins).
+Users can register for an event providing special requirements and confirm agreement with policies 
+with below four inputs.
 
-To create a new repository using this template, see the GitHub [template repository guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+1. **Text box:** Enter your full name
+2. **Text area:** Mention dietary restrictions or additional requests
+3. **Checkbox:** I agree to the event’s rules and regulations
+4. **Drop-down:** Select your role at the event (Speaker/Attendee/Volunteer)
+
+## Building Plugin Locally
+
+This is a gradle project. To build plugin run just run Gradle Wrapper Script.
+
+> ./gradlew
+
+After successful completion of gradle build process, the plugin zip will be available under **build/distributions** directory.
+
