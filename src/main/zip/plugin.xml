@@ -1,66 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.urbancode.com/PluginXMLSchema_v1">
     <header>
-        <identifier id="com.ibm.ucd.sample.automation.plugin" name="UCD Sample Automation Plugin" version="1"/>
-        <description>This is a sample automation plugin for UCD</description>
-        <tag>Utilities/Sample Plugin</tag>
+        <identifier id="com.shabaz.ucd.demo.event.plugin" name="UCD Demo Event Plugin" version="1"/>
+        <description>This is a demo plugin for UCD</description>
+        <tag>Utilities/Demo Event</tag>
     </header>
-    <step-type name="Step One">
-        <description>First step in sample plugin</description>
+    <step-type name="Event Registration">
+        <description>Register a user for the Event</description>
         <properties>
-            <property name="userName" required="true">
-                <property-ui description="Example of a 'textBox' type input"
-                             label="User Name"
+            <property name="name" required="true">
+                <property-ui description="Enter your full name"
+                             label="Full name"
                              type="textBox"/>
             </property>
-            <property name="age" required="true">
-                <property-ui description="Example of a 'secureBox' type input"
-                             label="Age of user"
-                             type="secureBox"/>
-            </property>
-            <property name="bio" required="false">
-                <property-ui description="Example of a 'textAreaBox' type input"
-                             label="User Bio"
+            <property name="additionalRequests" required="false">
+                <property-ui description="Mention dietary restrictions or additional requests"
+                             label="Requests"
                              type="textAreaBox"/>
             </property>
-        </properties>
-        <post-processing>
-            <![CDATA[
-                if (properties.get("exitCode") != 0) {
-                    properties.put("Status", "Failure");
-                }
-                else {
-                    properties.put("Status", "Success");
-                }
-            ]]>
-        </post-processing>
-        <command program="${PLUGIN_HOME}/javawrapper.sh">
-            <arg value="-cp"/>
-            <arg path="${PLUGIN_HOME}/*"/>
-            <arg value="com.ibm.ucd.sample.automation.plugin.FirstStep"/>
-            <arg file="${PLUGIN_INPUT_PROPS}"/>
-            <arg file="${PLUGIN_OUTPUT_PROPS}"/>
-        </command>
-    </step-type>
-    <step-type name="Step Two">
-        <description>Second step in sample plugin</description>
-        <properties>
-            <property name="medal" required="false">
-                <property-ui description="Example of a 'selectBox' type input"
-                             default-value="NONE"
-                             label="Medal"
-                             type="selectBox"/>
-                <value label="Gold">GOLD</value>
-                <value label="Silver">SILVER</value>
-                <value label="Bronze">BRONZE</value>
-                <value label="None">NONE</value>
-            </property>
-            <property name="agreeTermsAndConditions" required="false">
-                <property-ui description="Example of a 'checkBox' type input"
+            <property name="acceptRulesAndRegulations" required="true">
+                <property-ui description="I agree to the event’s rules and regulations"
                              default-value="false"
-                             label="Accept terms and conditions"
+                             label="Accept event rules and regulations"
                              type="checkBox"/>
             </property>
+            <property name="role" required="true">
+                <property-ui description="Select your role at the event (Speaker/Attendee/Volunteer)"
+                             default-value="ATTENDEE"
+                             label="Role"
+                             type="selectBox"/>
+                <value label="Speaker">SPEAKER</value>
+                <value label="Attendee">ATTENDEE</value>
+                <value label="Volunteer">VOLUNTEER</value>
+            </property>
         </properties>
         <post-processing>
             <![CDATA[
@@ -75,7 +47,7 @@
         <command program="${PLUGIN_HOME}/javawrapper.sh">
             <arg value="-cp"/>
             <arg path="${PLUGIN_HOME}/*"/>
-            <arg value="com.ibm.ucd.sample.automation.plugin.SecondStep"/>
+            <arg value="com.shabaz.ucd.demo.event.plugin.EventRegistration"/>
             <arg file="${PLUGIN_INPUT_PROPS}"/>
             <arg file="${PLUGIN_OUTPUT_PROPS}"/>
         </command>

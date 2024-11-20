@@ -4,7 +4,7 @@
     <integration type="Automation"/>
 
     <tool-description>
-        This is a sample automation plugin for Devops Deploy
+        This is a Demo Event Plugin for UCD
     </tool-description>
 
     <!-- Do not change the release-version, the build process injects it. -->

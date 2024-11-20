@@ -1,4 +1,4 @@
-package com.ibm.ucd.sample.automation.plugin;
+package com.shabaz.ucd.demo.event.plugin;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
